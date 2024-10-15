@@ -1,0 +1,261 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+      "title": "Employee Management API",
+      "version": "1.0.0",
+      "description": "API for managing employee records including creating, updating, retrieving, and deleting employee data."
+     
+    },
+     "servers":{
+      "url" : "http://localhost:8000/employees"
+    },
+
+    "paths": {
+      "/": {
+        "get": {
+          "summary": "Get all employees",
+          "operationId": "getEmployees",
+          "responses": {
+            "200": {
+              "description": "A list of employees",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "emp_id": {
+                          "type": "integer",
+                          "description": "The unique identifier for an employee"
+                        },
+                        "first_name": {
+                          "type": "string",
+                          "description": "The first name of the employee"
+                        },
+                        "last_name": {
+                          "type": "string",
+                          "description": "The last name of the employee"
+                        },
+                        "role_id": {
+                          "type": "integer",
+                          "description": "The role identifier of the employee"
+                        },
+                        "role_name": {
+                          "type": "string",
+                          "description": "The name of the role"
+                        },
+                        "org_id": {
+                          "type": "integer",
+                          "description": "The organization identifier of the employee"
+                        },
+                        "org_name": {
+                          "type": "string",
+                          "description": "The name of the organization"
+                        },
+                        "salary": {
+                          "type": "number",
+                          "format": "float",
+                          "description": "The salary of the employee"
+                        },
+                        "isactive": {
+                          "type": "boolean",
+                          "description": "Indicates if the employee is active"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "Error fetching employee data"
+            }
+          }
+        },
+        "post": {
+          "summary": "Create a new employee",
+          "operationId": "createEmployee",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "first_name": {
+                      "type": "string",
+                      "description": "The first name of the employee"
+                    },
+                    "last_name": {
+                      "type": "string",
+                      "description": "The last name of the employee"
+                    },
+                    "role_name": {
+                      "type": "string",
+                      "description": "The name of the role"
+                    },
+                    "org_name": {
+                      "type": "string",
+                      "description": "The name of the organization"
+                    },
+                    "salary": {
+                      "type": "number",
+                      "format": "float",
+                      "description": "The salary of the employee"
+                    }
+                  },
+                  "required": ["first_name", "last_name", "role_name", "org_name", "salary"]
+                }
+              }
+            },
+            "responses": {
+              "201": {
+                "description": "Employee created successfully",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Employee created"
+                        },
+                        "emp_id": {
+                          "type": "integer",
+                          "description": "The unique identifier of the created employee"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "400": {
+                "description": "Validation error or missing required data"
+              },
+              "500": {
+                "description": "Error creating employee"
+              }
+            }
+          }
+        }
+      },
+      "/{emp_id}": {
+        "delete": {
+          "summary": "Delete an employee",
+          "operationId": "deleteEmployee",
+          "parameters": [
+            {
+              "name": "emp_id",
+              "in": "path",
+              "required": true,
+              "description": "The unique identifier of the employee to delete",
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Employee deleted successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string",
+                        "example": "Employee deleted successfully"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Employee not found"
+            },
+            "500": {
+              "description": "Error deleting employee"
+            }
+          }
+        },
+        "put": {
+          "summary": "Update an employee",
+          "operationId": "updateEmployee",
+          "parameters": [
+            {
+              "name": "emp_id",
+              "in": "path",
+              "required": true,
+              "description": "The unique identifier of the employee to update",
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "first_name": {
+                      "type": "string",
+                      "description": "The first name of the employee"
+                    },
+                    "last_name": {
+                      "type": "string",
+                      "description": "The last name of the employee"
+                    },
+                    "role_name": {
+                      "type": "string",
+                      "description": "The name of the role"
+                    },
+                    "org_name": {
+                      "type": "string",
+                      "description": "The name of the organization"
+                    },
+                    "salary": {
+                      "type": "number",
+                      "format": "float",
+                      "description": "The salary of the employee"
+                    }
+                  }
+                }
+              }
+            },
+            "responses": {
+              "200": {
+                "description": "Employee updated successfully",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Employee updated successfully"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "404": {
+                "description": "Employee not found"
+              },
+              "400": {
+                "description": "Missing required data or validation error"
+              },
+              "500": {
+                "description": "Error updating employee"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  

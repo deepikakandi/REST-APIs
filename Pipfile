@@ -1,0 +1,15 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = false
+name = "pypi"
+
+[packages]
+flask = "*"
+pandas = "*"
+psycopg2 = "*"
+
+[dev-packages]
+pytest-cov = "==3.*"
+
+[requires]
+python_version = ">=python 3.9"
